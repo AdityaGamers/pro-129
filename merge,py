@@ -1,0 +1,28 @@
+import csv
+data1=[]
+data2=[]
+with open("final1.csv") as a:
+    reader=csv.reader(a)
+    for i in  reader:
+        data1.append(i)
+headers1=data1[0]
+planetdata1=data1[1:]
+with open("archivesorted.csv") as a:
+    reader=csv.reader(a)
+    for i in  reader:
+        data2.append(i)
+headers2=data2[0]
+planetdata2=data2[1:]
+headers=headers1+headers2
+planetdata=[]
+for i,row in enumerate(planetdata1):
+    planetdata.append(planetdata1[i]+planetdata2[i])
+with open("merged.csv","a+") as r:
+    writer=csv.writer(r)
+    writer.writerow(headers)
+    writer.writerows(planetdata)
+with open("merged.csv") as input,open("finalmerged.csv","w",newline="") as output:
+    writer=csv.writer(output)
+    for row in csv.reader(input):
+        if any(x.strip() for x in row):
+            writer.writerow(row)
